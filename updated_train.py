@@ -381,7 +381,7 @@ load_model = True
 if load_model:
     # transformer_model.load_state_dict(torch.load("/pscratch/sd/j/josh-ee/tf/model_ckpt/og_epoch5_checkpoint.pth.tar", map_location=device)['state_dict'])
 
-    checkpoint = torch.load("/pscratch/sd/j/josh-ee/tf/model_ckpt/no_scheduler_epoch36_checkpoint.pth.tar", map_location=device)
+    checkpoint = torch.load("/pscratch/sd/j/josh-ee/tf/model_ckpt/no_scheduler_epoch39_checkpoint.pth.tar", map_location=device)
 
     # Load the model state dictionary
     transformer_model.load_state_dict(checkpoint['state_dict'])
