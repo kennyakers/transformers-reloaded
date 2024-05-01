@@ -791,7 +791,8 @@ _ = gc.collect()
 
 
 # ## Calculating Bleu Score
-from torchtext.data.metrics import bleu_score
+# !pip3 install 'sacrebleu'
+import sacrebleu
 
 
 def calculate_bleu(data, model, device, max_len=50):
@@ -805,10 +806,10 @@ def calculate_bleu(data, model, device, max_len=50):
         pred_tgt = pred_tgt[1:-1]
         pred_sent = [ger_vocab.get_itos()[i] for i in pred_tgt]
         preds.append(pred_sent)
-        tgts.append([tokenizer_ger(tgt.lower())])
+        tgts.append(tgt)
+    preds = [' '.join(tokens).replace(" ,", ",").replace(" .", ".").replace(" :", ":").replace(' "', '"').replace(" '", "'").replace(" ?", "?") for tokens in preds]
+    return sacrebleu.corpus_bleu(preds, tgts)
 
-    return bleu_score(preds, tgts)
-
-
+# bleu = calculate_bleu(Dataset.from_dict(test[:1000]), transformer_model, device)
 bleu = calculate_bleu(test, transformer_model, device)
 print("BLEU Score Achieved :", bleu)
